@@ -9,8 +9,8 @@ namespace API.Controllers
        
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> GetActivities(CancellationToken ct){
-            return await Mediator.Send(new List.Query(), ct);
+        public async Task<ActionResult<List<Activity>>> GetActivities(){
+            return await Mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
@@ -28,7 +28,6 @@ namespace API.Controllers
         public async Task<IActionResult> EditActivity(Guid id, Activity activity) 
         {
             activity.Id = id; 
-            int i = 1;            
             return Ok(await Mediator.Send(new Edit.Command{Activity = activity}));
         }
 
