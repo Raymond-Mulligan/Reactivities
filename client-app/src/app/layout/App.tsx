@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import './styles.css';
 import axios from 'axios';
 import { Container } from 'semantic-ui-react';
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <Container>
+      <Container style={{marginTop: '7em'}}>
         <ActivityDashBard activities={activities} />
       </Container>        
     </>
