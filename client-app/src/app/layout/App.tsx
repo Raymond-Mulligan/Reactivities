@@ -10,6 +10,8 @@ import ActivityDashBard from '../../features/activities/dashboard/ActivityDashbo
 function App() {
 
   const [activities, setActivties] = useState<Activity[]>([]);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | undefined>(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     axios.get<Activity[]>('http://localhost:5000/api/activities').then(response => {      
@@ -18,14 +20,43 @@ function App() {
    
   },[])
 
+  function handleSelectActivity(id: string) {
+    setSelectedActivity(activities.find(x => x.id === id))
+  }
+
+  function handleCancelSelectedActivity(){
+    setSelectedActivity(undefined);
+  }
+
+  function handelFormOpen(id?: string){
+    id ? handleSelectActivity(id) : handleCancelSelectedActivity();
+    setEditMode(true);
+  }
+
+  function handelFormClose(){
+    setEditMode(false);
+  }
+
   return (
     <>
-      <NavBar />
+      <NavBar openForm={handelFormOpen} />
       <Container style={{marginTop: '7em'}}>
-        <ActivityDashBard activities={activities} />
+        <ActivityDashBard 
+        activities={activities} 
+        selectedActivity={selectedActivity}
+        selectActivity={handleSelectActivity}
+        cancelSelectedActivity={handleCancelSelectedActivity}
+        editMode={editMode}
+        openForm={handelFormOpen}
+        closeForm={handelFormClose}
+        />
       </Container>        
     </>
   );
 }
 
 export default App;
+function find(arg0: (x: any) => boolean): any {
+  throw new Error('Function not implemented.');
+}
+

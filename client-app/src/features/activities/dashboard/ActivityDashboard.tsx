@@ -7,18 +7,30 @@ import ActivityList from './ActivityList';
 
 interface Props {
     activities : Activity[];
+    selectedActivity : Activity | undefined;
+    selectActivity: (id : string) => void;
+    cancelSelectedActivity: () => void;
+    editMode : boolean;
+    openForm: (id: string) => void;
+    closeForm : () => void;
 }
 
-export default function ActivityDashBard({activities}:Props){
+export default function ActivityDashBard({activities, selectedActivity, 
+    selectActivity, cancelSelectedActivity, editMode, openForm, closeForm}:Props){
     return (
         <Grid>            
             <GridColumn width='10'>
-                <ActivityList activities={activities} />
+                <ActivityList activities={activities} selectActivity={selectActivity} />
             </GridColumn>
             <Grid.Column width='6'>
-                {activities[0] &&
-                <ActivityDetails activity={activities[0]}/>}
-                <ActivityForm/>
+                {selectedActivity &&  !editMode &&                               
+                <ActivityDetails 
+                    activity={selectedActivity} 
+                    cancelSelectedActivity={cancelSelectedActivity}
+                    openForm={openForm}
+                />}
+                {editMode &&
+                <ActivityForm closeForm={closeForm} activity={selectedActivity}/>}
             </Grid.Column>
         </Grid>
     )        
