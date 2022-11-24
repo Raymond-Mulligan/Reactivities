@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Button, Form, Segment } from 'semantic-ui-react';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import { useStore } from '../../../app/stores/store';
@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 
 
 export default observer(function ActivityForm() {
-    const history = useNavigate(); //In react-router-dom v6 useHistory() is replaced by useNavigate() 
+    const history = useHistory();
     const { activityStore } = useStore();
     const { createActivity, updateActivity, 
         loading, loadActivity, loadingInitial } = activityStore;
@@ -36,9 +36,9 @@ export default observer(function ActivityForm() {
                 ...activity,
                 id: uuid()
             };
-            createActivity(newActivity).then(() => history(`/activities/${newActivity.id}`))
+            createActivity(newActivity).then(() => history.push(`/activities/${newActivity.id}`))
         } else {
-            updateActivity(activity).then(() => history(`/activities/${activity.id}`))
+            updateActivity(activity).then(() => history.push(`/activities/${activity.id}`))
         }
     }
 

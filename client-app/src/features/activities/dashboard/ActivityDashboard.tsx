@@ -7,7 +7,7 @@ import ActivityFilters from './ActivityFilters';
 import ActivityList from './ActivityList';
 
 
-export default observer ( function ActivityDashBard(){
+export default observer ( function ActivityDashBoard(){
     const {activityStore} = useStore();
     const {loadActivities, activityRegistry} = activityStore;
  
