@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Microsoft.AspNetCore.Identity;
+using Domain;
 
 namespace API
 {
@@ -20,8 +22,9 @@ namespace API
            var services = scope.ServiceProvider;
            try {
             var context = services.GetRequiredService<DataContext>();
+            var userManager = services.GetRequiredService<UserManager<AppUser>>();
             await context.Database.MigrateAsync();
-            await Seed.SeedData(context);
+            await Seed.SeedData(context, userManager);
            } catch (Exception ex) {
             var logger = services.GetRequiredService<ILogger<Program>>();
             logger.LogError(ex.Message, "Error on migration");
