@@ -34,7 +34,7 @@ namespace Application.Activities
 
                 if (!result) Result<Unit>.Failure("Failed to delete the Activity");
 
-                return Result<Unit>.Sucsess(Unit.Value);
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

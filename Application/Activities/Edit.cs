@@ -48,7 +48,7 @@ namespace Application.Activities
 
                 if(!result) return Result<Unit>.Failure("Failed to update Activity");
 
-                return Result<Unit>.Sucsess(Unit.Value); //Empty object
+                return Result<Unit>.Success(Unit.Value); //Empty object
             }
         }
     }

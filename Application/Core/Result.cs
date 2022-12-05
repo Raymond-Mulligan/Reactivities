@@ -13,7 +13,7 @@ namespace Application.Core
 
         public string Error {get; set;}
 
-        public static Result<T> Sucsess(T value) => new Result<T> {
+        public static Result<T> Success(T value) => new Result<T> {
             IsSucsess = true,
             Value = value
         };
